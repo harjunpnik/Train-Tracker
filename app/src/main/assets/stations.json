@@ -1,0 +1,1250 @@
+[
+  {
+    "stationName": "Ainola",
+    "stationShortCode": "AIN",
+    "longitude": "25.101494",
+    "latitude": "60.456863"
+  },
+  {
+    "stationName": "Alavus",
+    "stationShortCode": "ALV",
+    "longitude": "23.600437",
+    "latitude": "62.617769"
+  },
+  {
+    "stationName": "Aviapolis",
+    "stationShortCode": "AVP",
+    "longitude": "24.956191",
+    "latitude": "60.30435"
+  },
+  {
+    "stationName": "Dragsvik",
+    "stationShortCode": "DRA",
+    "longitude": "23.488607",
+    "latitude": "59.990199"
+  },
+  {
+    "stationName": "Eläinpuisto-Zoo",
+    "stationShortCode": "EPZ",
+    "longitude": "24.190381",
+    "latitude": "62.540979"
+  },
+  {
+    "stationName": "Eno",
+    "stationShortCode": "ENO",
+    "longitude": "30.141691",
+    "latitude": "62.806375"
+  },
+  {
+    "stationName": "Espoo",
+    "stationShortCode": "EPO",
+    "longitude": "24.655992",
+    "latitude": "60.205067"
+  },
+  {
+    "stationName": "Haapajärvi",
+    "stationShortCode": "HPJ",
+    "longitude": "25.33434",
+    "latitude": "63.754515"
+  },
+  {
+    "stationName": "Haapamäki",
+    "stationShortCode": "HPK",
+    "longitude": "24.455067",
+    "latitude": "62.246476"
+  },
+  {
+    "stationName": "Haarajoki",
+    "stationShortCode": "HAA",
+    "longitude": "25.13382",
+    "latitude": "60.496261"
+  },
+  {
+    "stationName": "Haksi",
+    "stationShortCode": "HSI",
+    "longitude": "25.554663",
+    "latitude": "60.408207"
+  },
+  {
+    "stationName": "Hankasalmi",
+    "stationShortCode": "HKS",
+    "longitude": "26.478116",
+    "latitude": "62.302807"
+  },
+  {
+    "stationName": "Hanko asema",
+    "stationShortCode": "HNK",
+    "longitude": "22.968291",
+    "latitude": "59.826865"
+  },
+  {
+    "stationName": "Hanko-Pohjoinen",
+    "stationShortCode": "HKP",
+    "longitude": "22.988361",
+    "latitude": "59.830141"
+  },
+  {
+    "stationName": "Harjavalta",
+    "stationShortCode": "HVA",
+    "longitude": "22.133261",
+    "latitude": "61.309689"
+  },
+  {
+    "stationName": "Haukivuori",
+    "stationShortCode": "HAU",
+    "longitude": "27.202606",
+    "latitude": "62.025658"
+  },
+  {
+    "stationName": "Heinävesi",
+    "stationShortCode": "HNV",
+    "longitude": "28.643419",
+    "latitude": "62.382542"
+  },
+  {
+    "stationName": "Helsinki asema",
+    "stationShortCode": "HKI",
+    "longitude": "24.941249",
+    "latitude": "60.172097"
+  },
+  {
+    "stationName": "Henna",
+    "stationShortCode": "HNN",
+    "longitude": "25.494389",
+    "latitude": "60.799132"
+  },
+  {
+    "stationName": "Herrala",
+    "stationShortCode": "HR",
+    "longitude": "25.475624",
+    "latitude": "60.896944"
+  },
+  {
+    "stationName": "Hiekkaharju",
+    "stationShortCode": "HKH",
+    "longitude": "25.049104",
+    "latitude": "60.303081"
+  },
+  {
+    "stationName": "Hikiä",
+    "stationShortCode": "HK",
+    "longitude": "24.919201",
+    "latitude": "60.752588"
+  },
+  {
+    "stationName": "Hinthaara",
+    "stationShortCode": "HH",
+    "longitude": "25.477951",
+    "latitude": "60.399764"
+  },
+  {
+    "stationName": "Humppila",
+    "stationShortCode": "HP",
+    "longitude": "23.362536",
+    "latitude": "60.919507"
+  },
+  {
+    "stationName": "Huopalahti",
+    "stationShortCode": "HPL",
+    "longitude": "24.893523",
+    "latitude": "60.21835"
+  },
+  {
+    "stationName": "Hyvinkää",
+    "stationShortCode": "HY",
+    "longitude": "24.857709",
+    "latitude": "60.631294"
+  },
+  {
+    "stationName": "Hämeenlinna",
+    "stationShortCode": "HL",
+    "longitude": "24.478851",
+    "latitude": "61.002368"
+  },
+  {
+    "stationName": "Höljäkkä",
+    "stationShortCode": "HÖL",
+    "longitude": "29.44413",
+    "latitude": "63.454874"
+  },
+  {
+    "stationName": "Iisalmi",
+    "stationShortCode": "ILM",
+    "longitude": "27.201109",
+    "latitude": "63.560099"
+  },
+  {
+    "stationName": "Iittala",
+    "stationShortCode": "ITA",
+    "longitude": "24.140789",
+    "latitude": "61.090616"
+  },
+  {
+    "stationName": "Ilmala asema",
+    "stationShortCode": "ILA",
+    "longitude": "24.920636",
+    "latitude": "60.208134"
+  },
+  {
+    "stationName": "Imatra asema",
+    "stationShortCode": "IMR",
+    "longitude": "28.776017",
+    "latitude": "61.195914"
+  },
+  {
+    "stationName": "Inkeroinen",
+    "stationShortCode": "IKR",
+    "longitude": "26.839178",
+    "latitude": "60.696674"
+  },
+  {
+    "stationName": "Inkoo",
+    "stationShortCode": "IKO",
+    "longitude": "23.93585",
+    "latitude": "60.061511"
+  },
+  {
+    "stationName": "Isokyrö",
+    "stationShortCode": "IKY",
+    "longitude": "22.394797",
+    "latitude": "62.951072"
+  },
+  {
+    "stationName": "Joensuu asema",
+    "stationShortCode": "JNS",
+    "longitude": "29.777033",
+    "latitude": "62.599536"
+  },
+  {
+    "stationName": "Jokela",
+    "stationShortCode": "JK",
+    "longitude": "24.970682",
+    "latitude": "60.552798"
+  },
+  {
+    "stationName": "Jorvas",
+    "stationShortCode": "JRS",
+    "longitude": "24.512776",
+    "latitude": "60.137885"
+  },
+  {
+    "stationName": "Joutseno",
+    "stationShortCode": "JTS",
+    "longitude": "28.488252",
+    "latitude": "61.120291"
+  },
+  {
+    "stationName": "Juupajoki",
+    "stationShortCode": "JJ",
+    "longitude": "24.365046",
+    "latitude": "61.796788"
+  },
+  {
+    "stationName": "Jyväskylä",
+    "stationShortCode": "JY",
+    "longitude": "25.754984",
+    "latitude": "62.241455"
+  },
+  {
+    "stationName": "Jämsä",
+    "stationShortCode": "JÄS",
+    "longitude": "25.173294",
+    "latitude": "61.865627"
+  },
+  {
+    "stationName": "Järvelä",
+    "stationShortCode": "JR",
+    "longitude": "25.274659",
+    "latitude": "60.867325"
+  },
+  {
+    "stationName": "Järvenpää asema",
+    "stationShortCode": "JP",
+    "longitude": "25.090796",
+    "latitude": "60.473684"
+  },
+  {
+    "stationName": "Kajaani",
+    "stationShortCode": "KAJ",
+    "longitude": "27.738374",
+    "latitude": "64.219716"
+  },
+  {
+    "stationName": "Kannelmäki",
+    "stationShortCode": "KAN",
+    "longitude": "24.877004",
+    "latitude": "60.239562"
+  },
+  {
+    "stationName": "Kannus",
+    "stationShortCode": "KNS",
+    "longitude": "23.915361",
+    "latitude": "63.898425"
+  },
+  {
+    "stationName": "Karjaa",
+    "stationShortCode": "KR",
+    "longitude": "23.66126",
+    "latitude": "60.068724"
+  },
+  {
+    "stationName": "Karkku",
+    "stationShortCode": "KRU",
+    "longitude": "23.049129",
+    "latitude": "61.443314"
+  },
+  {
+    "stationName": "Kauhava",
+    "stationShortCode": "KHA",
+    "longitude": "23.0353",
+    "latitude": "63.099643"
+  },
+  {
+    "stationName": "Kauklahti asema",
+    "stationShortCode": "KLH",
+    "longitude": "24.600354",
+    "latitude": "60.189456"
+  },
+  {
+    "stationName": "Kauniainen",
+    "stationShortCode": "KNI",
+    "longitude": "24.730884",
+    "latitude": "60.211939"
+  },
+  {
+    "stationName": "Kausala",
+    "stationShortCode": "KA",
+    "longitude": "26.329366",
+    "latitude": "60.885347"
+  },
+  {
+    "stationName": "Kemi",
+    "stationShortCode": "KEM",
+    "longitude": "24.574365",
+    "latitude": "65.736729"
+  },
+  {
+    "stationName": "Kemijärvi",
+    "stationShortCode": "KJÄ",
+    "longitude": "27.403715",
+    "latitude": "66.724273"
+  },
+  {
+    "stationName": "Kera",
+    "stationShortCode": "KEA",
+    "longitude": "24.75564",
+    "latitude": "60.216573"
+  },
+  {
+    "stationName": "Kerava asema",
+    "stationShortCode": "KE",
+    "longitude": "25.106028",
+    "latitude": "60.404297"
+  },
+  {
+    "stationName": "Kerimäki",
+    "stationShortCode": "KIÄ",
+    "longitude": "29.114053",
+    "latitude": "61.861412"
+  },
+  {
+    "stationName": "Kesälahti",
+    "stationShortCode": "KTI",
+    "longitude": "29.802865",
+    "latitude": "61.887467"
+  },
+  {
+    "stationName": "Keuruu",
+    "stationShortCode": "KEU",
+    "longitude": "24.707325",
+    "latitude": "62.255309"
+  },
+  {
+    "stationName": "Kiiala",
+    "stationShortCode": "KIA",
+    "longitude": "25.613204",
+    "latitude": "60.406719"
+  },
+  {
+    "stationName": "Kilo",
+    "stationShortCode": "KIL",
+    "longitude": "24.782393",
+    "latitude": "60.217939"
+  },
+  {
+    "stationName": "Kirkkonummi",
+    "stationShortCode": "KKN",
+    "longitude": "24.438814",
+    "latitude": "60.119648"
+  },
+  {
+    "stationName": "Kitee",
+    "stationShortCode": "KIT",
+    "longitude": "30.049014",
+    "latitude": "62.142774"
+  },
+  {
+    "stationName": "Kiuruvesi",
+    "stationShortCode": "KRV",
+    "longitude": "26.611334",
+    "latitude": "63.640907"
+  },
+  {
+    "stationName": "Kivistö",
+    "stationShortCode": "KTÖ",
+    "longitude": "24.846938",
+    "latitude": "60.314607"
+  },
+  {
+    "stationName": "Kohtavaara",
+    "stationShortCode": "KOH",
+    "longitude": "29.284261",
+    "latitude": "63.515134"
+  },
+  {
+    "stationName": "Koivuhovi",
+    "stationShortCode": "KVH",
+    "longitude": "24.701273",
+    "latitude": "60.207144"
+  },
+  {
+    "stationName": "Koivukylä",
+    "stationShortCode": "KVY",
+    "longitude": "25.059797",
+    "latitude": "60.323284"
+  },
+  {
+    "stationName": "Kokemäki",
+    "stationShortCode": "KKI",
+    "longitude": "22.30335",
+    "latitude": "61.254199"
+  },
+  {
+    "stationName": "Kokkola",
+    "stationShortCode": "KOK",
+    "longitude": "23.131096",
+    "latitude": "63.834429"
+  },
+  {
+    "stationName": "Kolari",
+    "stationShortCode": "KLI",
+    "longitude": "23.836254",
+    "latitude": "67.348706"
+  },
+  {
+    "stationName": "Kolho",
+    "stationShortCode": "KLO",
+    "longitude": "24.507444",
+    "latitude": "62.128049"
+  },
+  {
+    "stationName": "Kontiomäki",
+    "stationShortCode": "KON",
+    "longitude": "28.114694",
+    "latitude": "64.338219"
+  },
+  {
+    "stationName": "Koria",
+    "stationShortCode": "KRA",
+    "longitude": "26.60131",
+    "latitude": "60.847067"
+  },
+  {
+    "stationName": "Korso",
+    "stationShortCode": "KRS",
+    "longitude": "25.078125",
+    "latitude": "60.350692"
+  },
+  {
+    "stationName": "Kotka asema",
+    "stationShortCode": "KTA",
+    "longitude": "26.928611",
+    "latitude": "60.464388"
+  },
+  {
+    "stationName": "Kotkan satama",
+    "stationShortCode": "KTS",
+    "longitude": "26.934952",
+    "latitude": "60.466492"
+  },
+  {
+    "stationName": "Kouvola asema",
+    "stationShortCode": "KV",
+    "longitude": "26.704588",
+    "latitude": "60.865613"
+  },
+  {
+    "stationName": "Kuopio asema",
+    "stationShortCode": "KUO",
+    "longitude": "27.679581",
+    "latitude": "62.897218"
+  },
+  {
+    "stationName": "Kupittaa",
+    "stationShortCode": "KUT",
+    "longitude": "22.297114",
+    "latitude": "60.450274"
+  },
+  {
+    "stationName": "Kylänlahti",
+    "stationShortCode": "KYN",
+    "longitude": "29.751617",
+    "latitude": "63.3614"
+  },
+  {
+    "stationName": "Kymi",
+    "stationShortCode": "KY",
+    "longitude": "26.90714",
+    "latitude": "60.539229"
+  },
+  {
+    "stationName": "Kyminlinna",
+    "stationShortCode": "KLN",
+    "longitude": "26.895812",
+    "latitude": "60.508258"
+  },
+  {
+    "stationName": "Käpylä",
+    "stationShortCode": "KÄP",
+    "longitude": "24.946034",
+    "latitude": "60.22017"
+  },
+  {
+    "stationName": "Lahti",
+    "stationShortCode": "LH",
+    "longitude": "25.657397",
+    "latitude": "60.97647"
+  },
+  {
+    "stationName": "Laihia",
+    "stationShortCode": "LAI",
+    "longitude": "22.003444",
+    "latitude": "62.990138"
+  },
+  {
+    "stationName": "Lapinlahti",
+    "stationShortCode": "LNA",
+    "longitude": "27.393552",
+    "latitude": "63.360666"
+  },
+  {
+    "stationName": "Lappeenranta",
+    "stationShortCode": "LR",
+    "longitude": "28.195304",
+    "latitude": "61.047973"
+  },
+  {
+    "stationName": "Lappila",
+    "stationShortCode": "LAA",
+    "longitude": "25.17423",
+    "latitude": "60.848954"
+  },
+  {
+    "stationName": "Lappohja",
+    "stationShortCode": "LPO",
+    "longitude": "23.236919",
+    "latitude": "59.904082"
+  },
+  {
+    "stationName": "Lapua",
+    "stationShortCode": "LPA",
+    "longitude": "23.015112",
+    "latitude": "62.971338"
+  },
+  {
+    "stationName": "Leinelä",
+    "stationShortCode": "LNÄ",
+    "longitude": "25.039847",
+    "latitude": "60.322613"
+  },
+  {
+    "stationName": "Lempäälä",
+    "stationShortCode": "LPÄ",
+    "longitude": "23.755094",
+    "latitude": "61.314233"
+  },
+  {
+    "stationName": "Lentoasema",
+    "stationShortCode": "LEN",
+    "longitude": "24.968343",
+    "latitude": "60.315732"
+  },
+  {
+    "stationName": "Leppävaara",
+    "stationShortCode": "LPV",
+    "longitude": "24.813541",
+    "latitude": "60.21948"
+  },
+  {
+    "stationName": "Lieksa",
+    "stationShortCode": "LIS",
+    "longitude": "30.016394",
+    "latitude": "63.318195"
+  },
+  {
+    "stationName": "Lievestuore",
+    "stationShortCode": "LVT",
+    "longitude": "26.195893",
+    "latitude": "62.259872"
+  },
+  {
+    "stationName": "Loimaa",
+    "stationShortCode": "LM",
+    "longitude": "23.060408",
+    "latitude": "60.847378"
+  },
+  {
+    "stationName": "Louhela",
+    "stationShortCode": "LOH",
+    "longitude": "24.853299",
+    "latitude": "60.270798"
+  },
+  {
+    "stationName": "Lusto",
+    "stationShortCode": "LUS",
+    "longitude": "29.322269",
+    "latitude": "61.800548"
+  },
+  {
+    "stationName": "Malmi",
+    "stationShortCode": "ML",
+    "longitude": "25.011468",
+    "latitude": "60.25166"
+  },
+  {
+    "stationName": "Malminkartano",
+    "stationShortCode": "MLO",
+    "longitude": "24.861283",
+    "latitude": "60.249316"
+  },
+  {
+    "stationName": "Martinlaakso",
+    "stationShortCode": "MRL",
+    "longitude": "24.852604",
+    "latitude": "60.27808"
+  },
+  {
+    "stationName": "Masala",
+    "stationShortCode": "MAS",
+    "longitude": "24.539106",
+    "latitude": "60.158661"
+  },
+  {
+    "stationName": "Mikkeli",
+    "stationShortCode": "MI",
+    "longitude": "27.277969",
+    "latitude": "61.687818"
+  },
+  {
+    "stationName": "Misi",
+    "stationShortCode": "MIS",
+    "longitude": "26.687235",
+    "latitude": "66.617923"
+  },
+  {
+    "stationName": "Mommila",
+    "stationShortCode": "MLA",
+    "longitude": "25.075141",
+    "latitude": "60.821177"
+  },
+  {
+    "stationName": "Moskova_(Leningradski)",
+    "stationShortCode": "MVA",
+    "longitude": "30.379968",
+    "latitude": "59.946584"
+  },
+  {
+    "stationName": "Muhos",
+    "stationShortCode": "MH",
+    "longitude": "25.991997",
+    "latitude": "64.805398"
+  },
+  {
+    "stationName": "Muurola",
+    "stationShortCode": "MUL",
+    "longitude": "25.37511",
+    "latitude": "66.370875"
+  },
+  {
+    "stationName": "Myllykoski",
+    "stationShortCode": "MKI",
+    "longitude": "26.787577",
+    "latitude": "60.770062"
+  },
+  {
+    "stationName": "Myllymäki",
+    "stationShortCode": "MY",
+    "longitude": "24.280965",
+    "latitude": "62.524753"
+  },
+  {
+    "stationName": "Myyrmäki",
+    "stationShortCode": "MYR",
+    "longitude": "24.854751",
+    "latitude": "60.261327"
+  },
+  {
+    "stationName": "Mäkkylä",
+    "stationShortCode": "MÄK",
+    "longitude": "24.842976",
+    "latitude": "60.22131"
+  },
+  {
+    "stationName": "Mäntsälä",
+    "stationShortCode": "MLÄ",
+    "longitude": "25.307475",
+    "latitude": "60.647258"
+  },
+  {
+    "stationName": "Mäntyharju",
+    "stationShortCode": "MR",
+    "longitude": "26.881746",
+    "latitude": "61.421104"
+  },
+  {
+    "stationName": "Nastola",
+    "stationShortCode": "NSL",
+    "longitude": "25.935467",
+    "latitude": "60.935567"
+  },
+  {
+    "stationName": "Nikkilä",
+    "stationShortCode": "NLÄ",
+    "longitude": "25.26654",
+    "latitude": "60.38237"
+  },
+  {
+    "stationName": "Nivala",
+    "stationShortCode": "NVL",
+    "longitude": "24.960768",
+    "latitude": "63.936389"
+  },
+  {
+    "stationName": "Nokia",
+    "stationShortCode": "NOA",
+    "longitude": "23.49917",
+    "latitude": "61.481059"
+  },
+  {
+    "stationName": "Nurmes",
+    "stationShortCode": "NRM",
+    "longitude": "29.137234",
+    "latitude": "63.541078"
+  },
+  {
+    "stationName": "Oitti",
+    "stationShortCode": "OI",
+    "longitude": "25.021316",
+    "latitude": "60.789806"
+  },
+  {
+    "stationName": "Orivesi",
+    "stationShortCode": "OV",
+    "longitude": "24.368047",
+    "latitude": "61.650095"
+  },
+  {
+    "stationName": "Orivesi keskusta",
+    "stationShortCode": "OVK",
+    "longitude": "24.369838",
+    "latitude": "61.673906"
+  },
+  {
+    "stationName": "Oulainen",
+    "stationShortCode": "OU",
+    "longitude": "24.82098",
+    "latitude": "64.269509"
+  },
+  {
+    "stationName": "Oulu asema",
+    "stationShortCode": "OL",
+    "longitude": "25.486121",
+    "latitude": "65.012409"
+  },
+  {
+    "stationName": "Oulunkylä",
+    "stationShortCode": "OLK",
+    "longitude": "24.967676",
+    "latitude": "60.229"
+  },
+  {
+    "stationName": "Paimenportti",
+    "stationShortCode": "PTI",
+    "longitude": "26.919345",
+    "latitude": "60.475938"
+  },
+  {
+    "stationName": "Paltamo",
+    "stationShortCode": "PTO",
+    "longitude": "27.82218",
+    "latitude": "64.40061"
+  },
+  {
+    "stationName": "Parikkala",
+    "stationShortCode": "PAR",
+    "longitude": "29.502884",
+    "latitude": "61.55855"
+  },
+  {
+    "stationName": "Parkano",
+    "stationShortCode": "PKO",
+    "longitude": "23.078439",
+    "latitude": "62.051967"
+  },
+  {
+    "stationName": "Parola",
+    "stationShortCode": "PRL",
+    "longitude": "24.366497",
+    "latitude": "61.049922"
+  },
+  {
+    "stationName": "Pasila asema",
+    "stationShortCode": "PSL",
+    "longitude": "24.933521",
+    "latitude": "60.198689"
+  },
+  {
+    "stationName": "Pasila autojuna-asema",
+    "stationShortCode": "PAU",
+    "longitude": "24.933169",
+    "latitude": "60.208303"
+  },
+  {
+    "stationName": "Pello",
+    "stationShortCode": "PEL",
+    "longitude": "23.993374",
+    "latitude": "66.78466"
+  },
+  {
+    "stationName": "Petäjävesi",
+    "stationShortCode": "PVI",
+    "longitude": "25.189337",
+    "latitude": "62.256974"
+  },
+  {
+    "stationName": "Pieksämäki asema",
+    "stationShortCode": "PM",
+    "longitude": "27.16753",
+    "latitude": "62.301253"
+  },
+  {
+    "stationName": "Pietari_(Finljandski)",
+    "stationShortCode": "PTR",
+    "longitude": "30.307694",
+    "latitude": "59.971855"
+  },
+  {
+    "stationName": "Pihlajavesi",
+    "stationShortCode": "PH",
+    "longitude": "24.395608",
+    "latitude": "62.346234"
+  },
+  {
+    "stationName": "Pitäjänmäki",
+    "stationShortCode": "PJM",
+    "longitude": "24.859649",
+    "latitude": "60.223412"
+  },
+  {
+    "stationName": "Pohjois-Haaga",
+    "stationShortCode": "POH",
+    "longitude": "24.883252",
+    "latitude": "60.230078"
+  },
+  {
+    "stationName": "Pori",
+    "stationShortCode": "PRI",
+    "longitude": "21.786607",
+    "latitude": "61.477212"
+  },
+  {
+    "stationName": "Porvoo",
+    "stationShortCode": "PRV",
+    "longitude": "25.648462",
+    "latitude": "60.396602"
+  },
+  {
+    "stationName": "Puistola",
+    "stationShortCode": "PLA",
+    "longitude": "25.036683",
+    "latitude": "60.276313"
+  },
+  {
+    "stationName": "Pukinmäki",
+    "stationShortCode": "PMK",
+    "longitude": "24.993288",
+    "latitude": "60.242216"
+  },
+  {
+    "stationName": "Punkaharju",
+    "stationShortCode": "PUN",
+    "longitude": "29.382354",
+    "latitude": "61.761151"
+  },
+  {
+    "stationName": "Purola",
+    "stationShortCode": "PUR",
+    "longitude": "25.050225",
+    "latitude": "60.500329"
+  },
+  {
+    "stationName": "Pyhäsalmi",
+    "stationShortCode": "PHÄ",
+    "longitude": "25.982615",
+    "latitude": "63.682935"
+  },
+  {
+    "stationName": "Pännäinen",
+    "stationShortCode": "PNÄ",
+    "longitude": "22.790363",
+    "latitude": "63.595382"
+  },
+  {
+    "stationName": "Pääskylahti",
+    "stationShortCode": "PKY",
+    "longitude": "28.924534",
+    "latitude": "61.862291"
+  },
+  {
+    "stationName": "Rekola",
+    "stationShortCode": "RKL",
+    "longitude": "25.068666",
+    "latitude": "60.332871"
+  },
+  {
+    "stationName": "Retretti",
+    "stationShortCode": "REE",
+    "longitude": "29.294294",
+    "latitude": "61.803308"
+  },
+  {
+    "stationName": "Riihimäki asema",
+    "stationShortCode": "RI",
+    "longitude": "24.781241",
+    "latitude": "60.736078"
+  },
+  {
+    "stationName": "Rovaniemi",
+    "stationShortCode": "ROI",
+    "longitude": "25.705329",
+    "latitude": "66.497675"
+  },
+  {
+    "stationName": "Runni",
+    "stationShortCode": "RNN",
+    "longitude": "26.886487",
+    "latitude": "63.602052"
+  },
+  {
+    "stationName": "Ruukki",
+    "stationShortCode": "RKI",
+    "longitude": "25.0982",
+    "latitude": "64.660373"
+  },
+  {
+    "stationName": "Ryttylä",
+    "stationShortCode": "RY",
+    "longitude": "24.758186",
+    "latitude": "60.818048"
+  },
+  {
+    "stationName": "Salo",
+    "stationShortCode": "SLO",
+    "longitude": "23.121448",
+    "latitude": "60.384777"
+  },
+  {
+    "stationName": "Santala",
+    "stationShortCode": "STA",
+    "longitude": "23.121052",
+    "latitude": "59.875008"
+  },
+  {
+    "stationName": "Saunakallio",
+    "stationShortCode": "SAU",
+    "longitude": "25.065568",
+    "latitude": "60.487305"
+  },
+  {
+    "stationName": "Savio",
+    "stationShortCode": "SAV",
+    "longitude": "25.097803",
+    "latitude": "60.381296"
+  },
+  {
+    "stationName": "Savonlinna asema",
+    "stationShortCode": "SL",
+    "longitude": "28.888266",
+    "latitude": "61.8689"
+  },
+  {
+    "stationName": "Seinäjoki asema",
+    "stationShortCode": "SK",
+    "longitude": "22.844217",
+    "latitude": "62.792016"
+  },
+  {
+    "stationName": "Siilinjärvi Asema",
+    "stationShortCode": "SIJ",
+    "longitude": "27.666561",
+    "latitude": "63.074953"
+  },
+  {
+    "stationName": "Simpele",
+    "stationShortCode": "SPL",
+    "longitude": "29.371696",
+    "latitude": "61.424787"
+  },
+  {
+    "stationName": "Siuntio",
+    "stationShortCode": "STI",
+    "longitude": "24.221671",
+    "latitude": "60.140648"
+  },
+  {
+    "stationName": "Skogby",
+    "stationShortCode": "SGY",
+    "longitude": "23.310799",
+    "latitude": "59.926083"
+  },
+  {
+    "stationName": "Sukeva",
+    "stationShortCode": "SKV",
+    "longitude": "27.422313",
+    "latitude": "63.864618"
+  },
+  {
+    "stationName": "Suonenjoki",
+    "stationShortCode": "SNJ",
+    "longitude": "27.124495",
+    "latitude": "62.623707"
+  },
+  {
+    "stationName": "Tammisaari",
+    "stationShortCode": "TMS",
+    "longitude": "23.443501",
+    "latitude": "59.979553"
+  },
+  {
+    "stationName": "Tampere asema",
+    "stationShortCode": "TPE",
+    "longitude": "23.773454",
+    "latitude": "61.498236"
+  },
+  {
+    "stationName": "Tapanila",
+    "stationShortCode": "TNA",
+    "longitude": "25.030033",
+    "latitude": "60.2639"
+  },
+  {
+    "stationName": "Tavastila",
+    "stationShortCode": "TSL",
+    "longitude": "26.954279",
+    "latitude": "60.572959"
+  },
+  {
+    "stationName": "Tervajoki",
+    "stationShortCode": "TK",
+    "longitude": "22.171462",
+    "latitude": "63.000773"
+  },
+  {
+    "stationName": "Tervola",
+    "stationShortCode": "TRV",
+    "longitude": "24.772291",
+    "latitude": "66.081811"
+  },
+  {
+    "stationName": "Tikkurila asema",
+    "stationShortCode": "TKL",
+    "longitude": "25.044055",
+    "latitude": "60.292166"
+  },
+  {
+    "stationName": "Toijala",
+    "stationShortCode": "TL",
+    "longitude": "23.860905",
+    "latitude": "61.170611"
+  },
+  {
+    "stationName": "Tolsa",
+    "stationShortCode": "TOL",
+    "longitude": "24.472724",
+    "latitude": "60.118558"
+  },
+  {
+    "stationName": "Tornio-Itäinen",
+    "stationShortCode": "TRI",
+    "longitude": "24.18508",
+    "latitude": "65.850823"
+  },
+  {
+    "stationName": "Tuomarila",
+    "stationShortCode": "TRL",
+    "longitude": "24.681767",
+    "latitude": "60.20605"
+  },
+  {
+    "stationName": "Turenki",
+    "stationShortCode": "TU",
+    "longitude": "24.63865",
+    "latitude": "60.918387"
+  },
+  {
+    "stationName": "Turku asema",
+    "stationShortCode": "TKU",
+    "longitude": "22.252945",
+    "latitude": "60.453985"
+  },
+  {
+    "stationName": "Turku satama",
+    "stationShortCode": "TUS",
+    "longitude": "22.226894",
+    "latitude": "60.434245"
+  },
+  {
+    "stationName": "Tuuri",
+    "stationShortCode": "TUU",
+    "longitude": "23.722323",
+    "latitude": "62.605349"
+  },
+  {
+    "stationName": "Uimaharju",
+    "stationShortCode": "UIM",
+    "longitude": "30.241497",
+    "latitude": "62.912482"
+  },
+  {
+    "stationName": "Utajärvi",
+    "stationShortCode": "UTJ",
+    "longitude": "26.413565",
+    "latitude": "64.758926"
+  },
+  {
+    "stationName": "Uusikylä",
+    "stationShortCode": "UKÄ",
+    "longitude": "25.993966",
+    "latitude": "60.927722"
+  },
+  {
+    "stationName": "Vaala",
+    "stationShortCode": "VAA",
+    "longitude": "26.842702",
+    "latitude": "64.558015"
+  },
+  {
+    "stationName": "Vaasa",
+    "stationShortCode": "VS",
+    "longitude": "21.621824",
+    "latitude": "63.097786"
+  },
+  {
+    "stationName": "Vainikkala asema",
+    "stationShortCode": "VNA",
+    "longitude": "28.303201",
+    "latitude": "60.863835"
+  },
+  {
+    "stationName": "Valimo",
+    "stationShortCode": "VMO",
+    "longitude": "24.8758",
+    "latitude": "60.222172"
+  },
+  {
+    "stationName": "Vammala",
+    "stationShortCode": "VMA",
+    "longitude": "22.887664",
+    "latitude": "61.349519"
+  },
+  {
+    "stationName": "Vantaankoski",
+    "stationShortCode": "VKS",
+    "longitude": "24.848271",
+    "latitude": "60.285681"
+  },
+  {
+    "stationName": "Varkaus",
+    "stationShortCode": "VAR",
+    "longitude": "27.873415",
+    "latitude": "62.312389"
+  },
+  {
+    "stationName": "Vehkala",
+    "stationShortCode": "VEH",
+    "longitude": "24.843716",
+    "latitude": "60.295054"
+  },
+  {
+    "stationName": "Vihanti",
+    "stationShortCode": "VTI",
+    "longitude": "24.993624",
+    "latitude": "64.48451"
+  },
+  {
+    "stationName": "Vihtari",
+    "stationShortCode": "VIH",
+    "longitude": "29.029282",
+    "latitude": "62.380739"
+  },
+  {
+    "stationName": "Viiala",
+    "stationShortCode": "VIA",
+    "longitude": "23.770683",
+    "latitude": "61.211787"
+  },
+  {
+    "stationName": "Viinijärvi",
+    "stationShortCode": "VNJ",
+    "longitude": "29.237166",
+    "latitude": "62.641687"
+  },
+  {
+    "stationName": "Viipuri",
+    "stationShortCode": "VYB",
+    "longitude": "29.900653",
+    "latitude": "60.379534"
+  },
+  {
+    "stationName": "Villähde",
+    "stationShortCode": "VLH",
+    "longitude": "25.833724",
+    "latitude": "60.946379"
+  },
+  {
+    "stationName": "Vilppula",
+    "stationShortCode": "VLP",
+    "longitude": "24.506956",
+    "latitude": "62.025888"
+  },
+  {
+    "stationName": "Vuonislahti",
+    "stationShortCode": "VSL",
+    "longitude": "29.99331",
+    "latitude": "63.152636"
+  },
+  {
+    "stationName": "Ylistaro",
+    "stationShortCode": "YST",
+    "longitude": "22.532729",
+    "latitude": "62.917801"
+  },
+  {
+    "stationName": "Ylitornio",
+    "stationShortCode": "YTR",
+    "longitude": "23.683194",
+    "latitude": "66.325333"
+  },
+  {
+    "stationName": "Ylivieska",
+    "stationShortCode": "YV",
+    "longitude": "24.540593",
+    "latitude": "64.071898"
+  },
+  {
+    "stationName": "Ähtäri",
+    "stationShortCode": "ÄHT",
+    "longitude": "24.064036",
+    "latitude": "62.553265"
+  }
+]
