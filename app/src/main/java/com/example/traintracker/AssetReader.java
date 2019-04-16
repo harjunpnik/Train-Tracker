@@ -8,8 +8,8 @@ import java.io.InputStream;
 public class AssetReader {
 
     //  https://stackoverflow.com/questions/13814503/reading-a-json-file-in-android
-    //  The code from StackOverflow was used
-    public static String loadJSONFromAsset(Context context) {
+    //  The code from StackOverflow was used. Reads stations.json and returns a string of the file in UTF-8.
+    public static String loadStationsFromAsset(Context context) {
         String json = null;
         try {
             InputStream inStream = context.getAssets().open("stations.json");
