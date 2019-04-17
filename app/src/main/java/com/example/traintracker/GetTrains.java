@@ -25,12 +25,14 @@ import java.util.HashMap;
 //  AsyncTask for Api requests.
 public class GetTrains extends AsyncTask<String, Void, JSONArray>
 {
+    private MainActivity ma;
     private String startShortCode;
     private String destShortCode;
     private HashMap<String,String> stationNames;
     private Context thisContext;
 
-    public GetTrains(String startShortCode, String destShortCode, Context thisContext){
+    public GetTrains(MainActivity ma, String startShortCode, String destShortCode, Context thisContext){
+        this.ma = ma;
         this.startShortCode =  startShortCode;
         this.destShortCode = destShortCode;
         this.thisContext = thisContext;
@@ -41,7 +43,7 @@ public class GetTrains extends AsyncTask<String, Void, JSONArray>
         try {
             //  Read Json file as Array. Takes the string and converts it to JSON Array
             JSONArray jsonObj = new JSONArray(AssetReader.loadStationsFromAsset(thisContext));
-            stationNames = new HashMap<String,String>();
+            stationNames = new HashMap<>();
             for(int i = 0; i < jsonObj.length(); i++){
                 //System.out.println(jsonObj.getJSONObject(i).getString("stationName"));
                 stationNames.put(jsonObj.getJSONObject(i).getString("stationShortCode"),jsonObj.getJSONObject(i).getString("stationName"));
@@ -92,11 +94,12 @@ public class GetTrains extends AsyncTask<String, Void, JSONArray>
     protected void sortData(JSONArray result){
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_ZONED_DATE_TIME;
-        DateTimeFormatter houtMinuteFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter houtMinuteFormatter = DateTimeFormatter.ofPattern("HH:mm").withZone(ZoneId.of("Europe/Helsinki"));
+        ArrayList<Train> trains = new ArrayList();
+
 
         try {
             for (int i = 0; i < result.length(); i++) {
-                //TODO MEBE CHECK IF CANCELLED???
                 String trainType = result.getJSONObject(i).getString("trainType");
                 int trainNumber = result.getJSONObject(i).getInt("trainNumber");
                 String startName = "";
@@ -108,41 +111,30 @@ public class GetTrains extends AsyncTask<String, Void, JSONArray>
 
                     if(startShortCode.equals(timeTableRows.getJSONObject(j).getString("stationShortCode")) && timeTableRows.getJSONObject(j).getString("type").equals("DEPARTURE") && timeTableRows.getJSONObject(j).getBoolean("trainStopping")){
                         startName = stationNames.get(timeTableRows.getJSONObject(j).getString("stationShortCode"));
-                        String tempTime = result.getJSONObject(i).getJSONArray("timeTableRows").getJSONObject(0).getString("scheduledTime");
+                        String tempstartTime = result.getJSONObject(i).getJSONArray("timeTableRows").getJSONObject(j).getString("scheduledTime");
 
-                        ZonedDateTime zoneStartTime =  ZonedDateTime.parse(tempTime, dateTimeFormatter);
+                        ZonedDateTime zoneStartTime =  ZonedDateTime.parse(tempstartTime, dateTimeFormatter);
 
                         startTime = zoneStartTime.format(houtMinuteFormatter);
                     }
 
                     if( destShortCode.equals(timeTableRows.getJSONObject(j).getString("stationShortCode")) && timeTableRows.getJSONObject(j).getString("type").equals("ARRIVAL") && timeTableRows.getJSONObject(j).getBoolean("trainStopping")){
                         destinationName = stationNames.get(timeTableRows.getJSONObject(j).getString("stationShortCode"));
-                        String tempTime = result.getJSONObject(i).getJSONArray("timeTableRows").getJSONObject(0).getString("scheduledTime");
+                        String tempDestTime = result.getJSONObject(i).getJSONArray("timeTableRows").getJSONObject(j).getString("scheduledTime");
 
-                        ZonedDateTime zoneStartTime =  ZonedDateTime.parse(tempTime, dateTimeFormatter);
+                        ZonedDateTime zoneDestTime =  ZonedDateTime.parse(tempDestTime, dateTimeFormatter);
 
-                        arrivalTime = zoneStartTime.format(houtMinuteFormatter);
+                        arrivalTime = zoneDestTime.format(houtMinuteFormatter);
                     }
 
                 }
-                //startName = result.getJSONObject(i).getJSONArray("timeTableRows").getJSONObject(0).getString("stationShortCode");
-                //SimpleDateFormat dateFormatter = new SimpleDateFormat("HH:mm");
-                //Date startDate = dateFormatter.parse(startTime);
-                //LocalDateTime startTime = LocalDateTime.parse(tempStartTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"));
-                //ZonedDateTime zoneTime = temp.atZone(ZoneId.of("Europe/Helsinki"));
-                //TODO MEBE CHECK IF commercial stop???
-                //String testForStopping = result.getJSONObject(i).getJSONArray("timeTableRows").getJSONObject(0).getString("trainStopping");
-                //String type = result.getJSONObject(i).getJSONArray("timeTableRows").getJSONObject(0).getString("type");
-                //TODO ADD TO HASHMAP OR ARRAYLIST
-                if(!startName.isEmpty() && !destinationName.isEmpty() )
-                    System.out.println(trainType + " " + trainNumber + ", " + startName + " " + startTime  + " " + destinationName + " " + arrivalTime);
 
-
-                //System.out.println(startDate);
-                //System.out.println(trainType + " " + trainNumber + ", " + startName + " " + startTime  + " type " + type + " " + testForStopping);//
+                if(!startName.isEmpty() && !destinationName.isEmpty() ){
+                    trains.add(new Train(trainNumber, trainType, startName, destinationName, startTime, arrivalTime));
+                }
             }
 
-            //TODO CALL METHOD TO UPDATE RECYCLE VIEW
+            ma.setRecyclerView(trains);
 
         } catch (JSONException e) {
             e.printStackTrace();

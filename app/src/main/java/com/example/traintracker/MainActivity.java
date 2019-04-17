@@ -4,31 +4,32 @@ import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
     AutoCompleteTextView startText;
     AutoCompleteTextView destinationText;
     Button setButton;
     Button viewMapButton;
-    RecyclerView RecyclerListView;
+    RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.Adapter mAdapter;
 
     private HashMap<String,String> stationNames;
 
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         destinationText = findViewById(R.id.destinationAutoComplete);
         setButton = findViewById(R.id.setButton);
         viewMapButton = findViewById(R.id.viewMapButtton);
-        RecyclerListView = findViewById(R.id.recyclerListView);
 
         setAutoCompleteTextViews();
     }
@@ -77,14 +77,27 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(dateFormat.format(date));
         System.out.println("https://rata.digitraffic.fi/api/v1/live-trains/station/" + start + "/" + destination + "/?departure_date=" + dateFormat.format(date));
 
-        //try {
-        //    JSONArray jsonArray = new JSONArray(getDataFromApi("https://rata.digitraffic.fi/api/v1/live-trains/station/" + start + "/" + destination + "/?departure_date=" + dateFormat.format(date)));
-        //} catch (JSONException e) {
-        //    e.printStackTrace();
-        //}
         String url = "https://rata.digitraffic.fi/api/v1/live-trains/station/" + start + "/" + destination + "/?departure_date=" + dateFormat.format(date);
 
-            new GetTrains(start, destination, this).execute(url);
+            new GetTrains(this, start, destination, this).execute(url);
+
+    }
+
+    public void setRecyclerView(ArrayList<Train> trains){
+        String[] menuValues = new String[trains.size()];
+
+        int i = 0;
+        for(Train train : trains)
+        {
+            menuValues[i] = train.getNameFormated();
+            i++;
+        }
+
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, menuValues);
+
+        final ListView lv = findViewById(R.id.listView);
+        lv.setAdapter(itemsAdapter);
 
     }
 
