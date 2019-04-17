@@ -1,6 +1,8 @@
 package com.example.traintracker;
 
-public class Train {
+import java.io.Serializable;
+
+public class Train implements Serializable {
 
     private int number;
     private String type;

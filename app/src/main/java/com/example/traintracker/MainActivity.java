@@ -1,5 +1,6 @@
 package com.example.traintracker;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -98,6 +100,20 @@ public class MainActivity extends AppCompatActivity {
 
         final ListView lv = findViewById(R.id.listView);
         lv.setAdapter(itemsAdapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                String itemFullName = (String) lv.getItemAtPosition(i);
+                intent.putExtra("full name", itemFullName);
+
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 

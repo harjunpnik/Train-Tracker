@@ -96,6 +96,7 @@ public class GetTrains extends AsyncTask<String, Void, JSONArray>
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_ZONED_DATE_TIME;
         DateTimeFormatter houtMinuteFormatter = DateTimeFormatter.ofPattern("HH:mm").withZone(ZoneId.of("Europe/Helsinki"));
         ArrayList<Train> trains = new ArrayList();
+        HashMap<String, Train> trainsHashMap = new HashMap<>();
 
 
         try {
@@ -131,10 +132,13 @@ public class GetTrains extends AsyncTask<String, Void, JSONArray>
 
                 if(!startName.isEmpty() && !destinationName.isEmpty() ){
                     trains.add(new Train(trainNumber, trainType, startName, destinationName, startTime, arrivalTime));
+                    trainsHashMap.put(trains.get(trains.size()-1).getNameFormated(),trains.get(trains.size()-1));
                 }
             }
 
             ma.setRecyclerView(trains);
+
+            FileIO.saveAccounts(trainsHashMap, ma);
 
         } catch (JSONException e) {
             e.printStackTrace();

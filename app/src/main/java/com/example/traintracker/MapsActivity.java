@@ -1,7 +1,9 @@
 package com.example.traintracker;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,9 +12,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.HashMap;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +27,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        toolbar = findViewById(R.id.toolbar);
+        
+        toolbar.setTitle("TEST");
+
+
+        HashMap<String, Train> test = FileIO.loadAccounts(this);
+        Intent intent = getIntent();
+        System.out.println("--------------" + test.get(intent.getStringExtra("full name")).getNameFormated());
+        System.out.println(test.size() + " SIZE");
     }
 
 
@@ -39,8 +54,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng( 60.21660, 24.96913);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Helsinki"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng helsinki = new LatLng( 60.21660, 24.96913);
+        mMap.addMarker(new MarkerOptions().position(helsinki).title("Helsinki"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(helsinki));
     }
 }
