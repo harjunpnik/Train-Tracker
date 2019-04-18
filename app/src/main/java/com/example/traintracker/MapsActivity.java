@@ -1,23 +1,44 @@
 package com.example.traintracker;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.maps.android.PolyUtil;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private Toolbar toolbar;
+    TextView nameText;
+    TextView startTimeText;
+    TextView arrivalTimeText;
+    private LatLng startLatLng;
+    private LatLng destinationLatLng;
+    private String startName;
+    private String destinationName;
+    private LatLng trainLatLng;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,34 +49,96 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        toolbar = findViewById(R.id.toolbar);
-        
-        toolbar.setTitle("TEST");
+        nameText = findViewById(R.id.nameText);
+        startTimeText = findViewById(R.id.startTimeText);
+        arrivalTimeText = findViewById(R.id.arrivalTimeText);
 
+        loadValues();
 
-        HashMap<String, Train> test = FileIO.loadAccounts(this);
-        Intent intent = getIntent();
-        System.out.println("--------------" + test.get(intent.getStringExtra("full name")).getNameFormated());
-        System.out.println(test.size() + " SIZE");
     }
 
+    public void loadValues(){
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+        HashMap<String, Train> trains = FileIO.loadAccounts(this);
+        Intent intent = getIntent();
+        String currentTrainName = intent.getStringExtra("full name");
+
+        nameText.setText(trains.get(currentTrainName).getNameFormated());
+        startTimeText.setText("Start Time: " + trains.get(currentTrainName).getStartTime());
+        arrivalTimeText.setText("Arrival Time: " + trains.get(currentTrainName).getArrivalTime());
+
+        startName = trains.get(currentTrainName).getStart();
+        destinationName = trains.get(currentTrainName).getDestination();
+
+        try {
+
+
+
+            JSONArray jsonObj = new JSONArray(AssetReader.loadStationsFromAsset(this));
+            for(int i = 0; i < jsonObj.length(); i++){
+                if(startName.equals(jsonObj.getJSONObject(i).getString("stationName")))
+                    startLatLng = new LatLng(jsonObj.getJSONObject(i).getDouble("latitude"), jsonObj.getJSONObject(i).getDouble("longitude"));
+
+                if(destinationName.equals(jsonObj.getJSONObject(i).getString("stationName")))
+                    destinationLatLng = new LatLng(jsonObj.getJSONObject(i).getDouble("latitude"), jsonObj.getJSONObject(i).getDouble("longitude"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            JSONArray jsonArray = new JSONArray(getDataFromApi("https://rata.digitraffic.fi/api/v1/train-locations/latest/" + trains.get(currentTrainName).getNumber()));
+            trainLatLng = new LatLng(jsonArray.getJSONObject(0).getJSONObject("location").getJSONArray("coordinates").getDouble(1), jsonArray.getJSONObject(0).getJSONObject("location").getJSONArray("coordinates").getDouble(0));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    //  Back button that takes you to the main page
+    public void onBack(View v) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng helsinki = new LatLng( 60.21660, 24.96913);
-        mMap.addMarker(new MarkerOptions().position(helsinki).title("Helsinki"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(helsinki));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(startLatLng));
+        drawOnMap();
     }
+
+    public void drawOnMap(){
+        mMap.clear();
+        mMap.addMarker(new MarkerOptions().position(startLatLng).title(startName));
+        mMap.addMarker(new MarkerOptions().position(destinationLatLng).title(destinationName).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+        //TODO IF TRAIN IS NOT NULL
+        if(trainLatLng != null)
+        mMap.addMarker(new MarkerOptions().position(trainLatLng).title("Train").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+
+    }
+
+
+    //  Executes Api query
+    public String getDataFromApi(String query){
+        String JSONresponse = new String();
+
+        try {
+            JSONresponse = new HTTPGet().execute(query).get();
+        }
+        catch (InterruptedException e) { e.printStackTrace(); }
+        catch (ExecutionException e) { e.printStackTrace(); }
+
+        if(JSONresponse != null)
+            return JSONresponse;
+        else
+            Toast.makeText(getApplicationContext(), "Couldnt find data", Toast.LENGTH_LONG).show();
+
+        return null;
+    }
+
 }
