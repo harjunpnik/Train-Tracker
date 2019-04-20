@@ -1,19 +1,15 @@
 package com.example.traintracker;
 
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -30,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
     AutoCompleteTextView destinationText;
     Button setButton;
     Button viewMapButton;
-    RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter mAdapter;
+    ListView listView;
+    TextView loadingText;
 
     private HashMap<String,String> stationNames;
 
@@ -44,8 +40,26 @@ public class MainActivity extends AppCompatActivity {
         destinationText = findViewById(R.id.destinationAutoComplete);
         setButton = findViewById(R.id.setButton);
         viewMapButton = findViewById(R.id.viewMapButtton);
+        listView = findViewById(R.id.listView);
+        loadingText = findViewById(R.id.loadingText);
 
         setAutoCompleteTextViews();
+    }
+
+    //  Toasts Error msg to user
+    public void toastError(String errorMsg){
+        Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
+    }
+
+    //  Toggles visibility between loading and ListView
+    public void setLoadingVisibility(boolean visibility){
+        if(visibility){
+            listView.setVisibility(View.GONE);
+            loadingText.setVisibility(View.VISIBLE);
+        }else{
+            listView.setVisibility(View.VISIBLE);
+            loadingText.setVisibility(View.GONE);
+        }
     }
 
     //  Sets the adapters of the autoComplete Lists
@@ -54,10 +68,9 @@ public class MainActivity extends AppCompatActivity {
             //  Read Json file as Array. Takes the string and converts it to JSON Array
             JSONArray jsonObj = new JSONArray(AssetReader.loadStationsFromAsset(this));
             ArrayList<String> adapterNames = new ArrayList<>();
-            stationNames = new HashMap<String,String>();
+            stationNames = new HashMap<>();
             for(int i = 0; i < jsonObj.length(); i++){
                 adapterNames.add(jsonObj.getJSONObject(i).getString("stationName"));
-                //System.out.println(jsonObj.getJSONObject(i).getString("stationName"));
                 stationNames.put(jsonObj.getJSONObject(i).getString("stationName"), jsonObj.getJSONObject(i).getString("stationShortCode"));
             }
             //  Creates adapter and sets it to the AutoComplete lists
@@ -65,27 +78,31 @@ public class MainActivity extends AppCompatActivity {
             startText.setAdapter(adapter);
             destinationText.setAdapter(adapter);
         } catch (JSONException e) {
-            Toast.makeText(getApplicationContext(), "Failed to successfully create Auto Complete Lists", Toast.LENGTH_LONG).show();
+            toastError("Failed to successfully create Auto Complete Lists");
         }
     }
+
+
 
     //  OnClick of Set Route
     public void onClickSetRoute(View v){
         String start = stationNames.get(startText.getText().toString());
         String destination = stationNames.get(destinationText.getText().toString());
-        System.out.println(start + " " + destination);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
+
+        System.out.println(start + " " + destination);
         System.out.println(dateFormat.format(date));
         System.out.println("https://rata.digitraffic.fi/api/v1/live-trains/station/" + start + "/" + destination + "/?departure_date=" + dateFormat.format(date));
 
         String url = "https://rata.digitraffic.fi/api/v1/live-trains/station/" + start + "/" + destination + "/?departure_date=" + dateFormat.format(date);
 
-            new GetTrains(this, start, destination, this).execute(url);
+        new GetTrains(this, start, destination, this).execute(url);
 
     }
 
-    public void setRecyclerView(ArrayList<Train> trains){
+    //  TODO COMMENT THIS
+    public void setListView(ArrayList<Train> trains){
         String[] menuValues = new String[trains.size()];
 
         int i = 0;
@@ -98,16 +115,16 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, menuValues);
 
-        final ListView lv = findViewById(R.id.listView);
-        lv.setAdapter(itemsAdapter);
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        listView.setAdapter(itemsAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                String itemFullName = (String) lv.getItemAtPosition(i);
+                String itemFullName = (String) listView.getItemAtPosition(i);
                 intent.putExtra("full name", itemFullName);
 
                 startActivity(intent);

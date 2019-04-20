@@ -38,6 +38,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String startName;
     private String destinationName;
     private LatLng trainLatLng;
+    private int trainNumber;
 
 
     @Override
@@ -55,11 +56,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         loadValues();
 
+
+
     }
 
     public void loadValues(){
 
-        HashMap<String, Train> trains = FileIO.loadAccounts(this);
+        HashMap<String, Train> trains = FileIO.loadTrains(this);
         Intent intent = getIntent();
         String currentTrainName = intent.getStringExtra("full name");
 
@@ -69,6 +72,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         startName = trains.get(currentTrainName).getStart();
         destinationName = trains.get(currentTrainName).getDestination();
+        trainNumber = trains.get(currentTrainName).getNumber();
+
+
 
         try {
 
@@ -109,6 +115,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(startLatLng));
         drawOnMap();
+        new TrainPosition(this, trainNumber).execute();
     }
 
     public void drawOnMap(){
@@ -119,7 +126,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //TODO IF TRAIN IS NOT NULL
         if(trainLatLng != null)
         mMap.addMarker(new MarkerOptions().position(trainLatLng).title("Train").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+    }
 
+    public void setNewTrainLatLng(LatLng newPosition){
+        trainLatLng = newPosition;
+    }
+
+    public void toastError(String errorMsg){
+        Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
     }
 
 

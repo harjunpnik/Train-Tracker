@@ -2,8 +2,6 @@ package com.example.traintracker;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,14 +10,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 //  AsyncTask for Api requests.
@@ -42,21 +36,27 @@ public class GetTrains extends AsyncTask<String, Void, JSONArray>
     protected void loadShortCodeTranslatorArray(){
         try {
             //  Read Json file as Array. Takes the string and converts it to JSON Array
+            //  This is HashMap is used for converting ShortCodes from the API to the full station names.
             JSONArray jsonObj = new JSONArray(AssetReader.loadStationsFromAsset(thisContext));
             stationNames = new HashMap<>();
             for(int i = 0; i < jsonObj.length(); i++){
-                //System.out.println(jsonObj.getJSONObject(i).getString("stationName"));
                 stationNames.put(jsonObj.getJSONObject(i).getString("stationShortCode"),jsonObj.getJSONObject(i).getString("stationName"));
             }
-            //  Creates adapter and sets it to the AutoComplete lists
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+    protected void onPreExecute()
+    {
+        //  Sets Loading visible and hides ListView
+        ma.setLoadingVisibility(true);
+    }
+
     @Override
     protected JSONArray doInBackground(String... strings)
     {
+        //  AsyncTask for Api request
         String response = new String();
 
         try
@@ -88,57 +88,73 @@ public class GetTrains extends AsyncTask<String, Void, JSONArray>
     {
         if(result != null) {
             sortData(result);
+        }else{
+            ma.setLoadingVisibility(false);
+            ma.toastError("No trains are running between the stations");
         }
     }
 
-    protected void sortData(JSONArray result){
+    private void sortData(JSONArray result){
 
+        //  TimeFormatters to Helsinki Time
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_ZONED_DATE_TIME;
-        DateTimeFormatter houtMinuteFormatter = DateTimeFormatter.ofPattern("HH:mm").withZone(ZoneId.of("Europe/Helsinki"));
-        ArrayList<Train> trains = new ArrayList();
+        DateTimeFormatter hourMinuteFormatter = DateTimeFormatter.ofPattern("HH:mm").withZone(ZoneId.of("Europe/Helsinki"));
+        //  New Lists for trains. ArrayList is used for list view and HashMap is saved and accessed later for fetching base information for MapsActivity
+        ArrayList<Train> trains = new ArrayList<>();
         HashMap<String, Train> trainsHashMap = new HashMap<>();
 
 
         try {
+            //  Loop the response to find all the trains that stop
             for (int i = 0; i < result.length(); i++) {
+
+                //  Assign base variables
                 String trainType = result.getJSONObject(i).getString("trainType");
                 int trainNumber = result.getJSONObject(i).getInt("trainNumber");
-                String startName = "";
-                String destinationName = "";
                 String startTime = "";
                 String arrivalTime = "";
+                //  Reset startName and destinationName to "empty"
+                String startName = "";
+                String destinationName = "";
+
+                //  All the arrivals and departures for the current train
                 JSONArray timeTableRows = result.getJSONObject(i).getJSONArray("timeTableRows");
                 for(int j = 0; j < timeTableRows.length(); j++ ){
 
+                    //  If current object has same name as start & current object is "DEPARTURE" & train is stopping on station
                     if(startShortCode.equals(timeTableRows.getJSONObject(j).getString("stationShortCode")) && timeTableRows.getJSONObject(j).getString("type").equals("DEPARTURE") && timeTableRows.getJSONObject(j).getBoolean("trainStopping")){
+                        //  Save variables
                         startName = stationNames.get(timeTableRows.getJSONObject(j).getString("stationShortCode"));
                         String tempstartTime = result.getJSONObject(i).getJSONArray("timeTableRows").getJSONObject(j).getString("scheduledTime");
-
                         ZonedDateTime zoneStartTime =  ZonedDateTime.parse(tempstartTime, dateTimeFormatter);
-
-                        startTime = zoneStartTime.format(houtMinuteFormatter);
+                        startTime = zoneStartTime.format(hourMinuteFormatter);
                     }
 
+                    //  If current object has same name as destination & current object is "ARRIVAL" & train is stopping on station
                     if( destShortCode.equals(timeTableRows.getJSONObject(j).getString("stationShortCode")) && timeTableRows.getJSONObject(j).getString("type").equals("ARRIVAL") && timeTableRows.getJSONObject(j).getBoolean("trainStopping")){
+                        //  Save variables
                         destinationName = stationNames.get(timeTableRows.getJSONObject(j).getString("stationShortCode"));
                         String tempDestTime = result.getJSONObject(i).getJSONArray("timeTableRows").getJSONObject(j).getString("scheduledTime");
-
                         ZonedDateTime zoneDestTime =  ZonedDateTime.parse(tempDestTime, dateTimeFormatter);
-
-                        arrivalTime = zoneDestTime.format(houtMinuteFormatter);
+                        arrivalTime = zoneDestTime.format(hourMinuteFormatter);
                     }
 
+                    //  If both start and destination has been found, add to lists and break inner loop
+                    if(!startName.isEmpty() && !destinationName.isEmpty() ){
+                        trains.add(new Train(trainNumber, trainType, startName, destinationName, startTime, arrivalTime));
+                        trainsHashMap.put(trains.get(trains.size()-1).getNameFormated(),trains.get(trains.size()-1));
+                        break;
+                    }
                 }
 
-                if(!startName.isEmpty() && !destinationName.isEmpty() ){
-                    trains.add(new Train(trainNumber, trainType, startName, destinationName, startTime, arrivalTime));
-                    trainsHashMap.put(trains.get(trains.size()-1).getNameFormated(),trains.get(trains.size()-1));
-                }
+
             }
 
-            ma.setRecyclerView(trains);
-
-            FileIO.saveAccounts(trainsHashMap, ma);
+            //  SetsRecyclerView
+            ma.setLoadingVisibility(false);
+            ma.setListView(trains);
+            //  Save Trains for MapsActivity
+            FileIO.saveTrains(trainsHashMap, ma);
 
         } catch (JSONException e) {
             e.printStackTrace();

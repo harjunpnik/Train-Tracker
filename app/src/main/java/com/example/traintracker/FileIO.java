@@ -17,7 +17,7 @@ public class FileIO
     private static String fileName = "trains";
 
     //  Load from file function. Returns new empty list if no file was found
-    public static HashMap<String, Train> loadAccounts(Activity activity)
+    public static HashMap<String, Train> loadTrains(Activity activity)
     {
         HashMap<String, Train> trains = new HashMap<>();
 
@@ -49,7 +49,7 @@ public class FileIO
     }
 
     // Save to file function.
-    public static void saveAccounts(HashMap<String, Train> routes, Activity activity)
+    public static void saveTrains(HashMap<String, Train> routes, Activity activity)
     {
         try
         {
