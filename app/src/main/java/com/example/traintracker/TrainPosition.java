@@ -27,7 +27,6 @@ public class TrainPosition extends AsyncTask<String, String, String>
 
     protected void onProgressUpdate(String[] strings)
     {
-        //TODO FIX THIS??
         maps.drawOnMap();
     }
 
@@ -41,9 +40,11 @@ public class TrainPosition extends AsyncTask<String, String, String>
             if(newPosition != null){
                 maps.setNewTrainLatLng(newPosition);
                 //  UPDATE MAP
-                publishProgress("TEST");
+                publishProgress();
+
             }else{
                 trainIsRunning = false;
+                break;
             }
 
             try {
@@ -57,7 +58,10 @@ public class TrainPosition extends AsyncTask<String, String, String>
 
     }
 
-
+    @Override
+    protected void onPostExecute(String s) {
+        maps.toastError("Train is not currently runnning");
+    }
 
     private LatLng getTrainLocation(){
         String response = new String();

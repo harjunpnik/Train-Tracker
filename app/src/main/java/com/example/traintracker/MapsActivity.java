@@ -14,6 +14,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -55,9 +56,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         arrivalTimeText = findViewById(R.id.arrivalTimeText);
 
         loadValues();
-
-
-
     }
 
     public void loadValues(){
@@ -74,12 +72,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         destinationName = trains.get(currentTrainName).getDestination();
         trainNumber = trains.get(currentTrainName).getNumber();
 
-
-
         try {
-
-
-
             JSONArray jsonObj = new JSONArray(AssetReader.loadStationsFromAsset(this));
             for(int i = 0; i < jsonObj.length(); i++){
                 if(startName.equals(jsonObj.getJSONObject(i).getString("stationName")))
@@ -92,12 +85,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
 
-        try {
-            JSONArray jsonArray = new JSONArray(getDataFromApi("https://rata.digitraffic.fi/api/v1/train-locations/latest/" + trains.get(currentTrainName).getNumber()));
-            trainLatLng = new LatLng(jsonArray.getJSONObject(0).getJSONObject("location").getJSONArray("coordinates").getDouble(1), jsonArray.getJSONObject(0).getJSONObject("location").getJSONArray("coordinates").getDouble(0));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
     }
 
@@ -113,8 +100,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(startLatLng));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(startLatLng));
+        CameraPosition cameraMovement = CameraPosition.builder()
+                .target(startLatLng)
+                .zoom(10)
+                .build();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraMovement));
         drawOnMap();
+        //  Start train tracking when map has loaded
         new TrainPosition(this, trainNumber).execute();
     }
 
@@ -123,7 +116,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(startLatLng).title(startName));
         mMap.addMarker(new MarkerOptions().position(destinationLatLng).title(destinationName).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
-        //TODO IF TRAIN IS NOT NULL
         if(trainLatLng != null)
         mMap.addMarker(new MarkerOptions().position(trainLatLng).title("Train").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
     }
@@ -134,25 +126,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void toastError(String errorMsg){
         Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
-    }
-
-
-    //  Executes Api query
-    public String getDataFromApi(String query){
-        String JSONresponse = new String();
-
-        try {
-            JSONresponse = new HTTPGet().execute(query).get();
-        }
-        catch (InterruptedException e) { e.printStackTrace(); }
-        catch (ExecutionException e) { e.printStackTrace(); }
-
-        if(JSONresponse != null)
-            return JSONresponse;
-        else
-            Toast.makeText(getApplicationContext(), "Couldnt find data", Toast.LENGTH_LONG).show();
-
-        return null;
     }
 
 }
