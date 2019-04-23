@@ -47,15 +47,13 @@ public class GetTrains extends AsyncTask<String, Void, JSONArray>
         }
     }
 
-    protected void onPreExecute()
-    {
+    protected void onPreExecute() {
         //  Sets Loading visible and hides ListView
         ma.setLoadingVisibility(true);
     }
 
     @Override
-    protected JSONArray doInBackground(String... strings)
-    {
+    protected JSONArray doInBackground(String... strings) {
         //  AsyncTask for Api request
         String response = new String();
 
@@ -84,8 +82,7 @@ public class GetTrains extends AsyncTask<String, Void, JSONArray>
 
 
     @Override
-    protected void onPostExecute(JSONArray result)
-    {
+    protected void onPostExecute(JSONArray result) {
         if(result != null) {
             sortData(result);
         }else{

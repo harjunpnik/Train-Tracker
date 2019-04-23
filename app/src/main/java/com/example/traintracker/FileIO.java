@@ -17,12 +17,11 @@ public class FileIO
     private static String fileName = "trains";
 
     //  Load from file function. Returns new empty list if no file was found
-    public static HashMap<String, Train> loadTrains(Activity activity)
-    {
+    public static HashMap<String, Train> loadTrains(Activity activity) {
+
         HashMap<String, Train> trains = new HashMap<>();
 
-        try
-        {
+        try {
             FileInputStream fIn = activity.openFileInput(fileName);
             ObjectInputStream inObj = new ObjectInputStream(fIn);
             trains = (HashMap<String, Train>) inObj.readObject();
@@ -30,18 +29,13 @@ public class FileIO
             fIn.close();
         }
 
-        catch (FileNotFoundException e)
-        {
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        catch (ClassNotFoundException e)
-        {
+        catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-        catch (IOException e)
-        {
+        catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -49,10 +43,9 @@ public class FileIO
     }
 
     // Save to file function.
-    public static void saveTrains(HashMap<String, Train> routes, Activity activity)
-    {
-        try
-        {
+    public static void saveTrains(HashMap<String, Train> routes, Activity activity) {
+
+        try {
             FileOutputStream fOut = activity.openFileOutput(fileName, Context.MODE_PRIVATE);
             ObjectOutputStream outObj = new ObjectOutputStream(fOut);
             outObj.writeObject(routes);
@@ -60,13 +53,11 @@ public class FileIO
             fOut.close();
         }
 
-        catch (FileNotFoundException e)
-        {
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        catch (IOException e)
-        {
+        catch (IOException e) {
             e.printStackTrace();
         }
     }

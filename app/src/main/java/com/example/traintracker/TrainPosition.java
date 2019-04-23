@@ -1,6 +1,5 @@
 package com.example.traintracker;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -13,33 +12,30 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-public class TrainPosition extends AsyncTask<String, String, String>
-{
+public class TrainPosition extends AsyncTask<String, String, String> {
     MapsActivity maps;
     int trainNumber;
-    boolean trainIsRunning;
+    boolean trainIsRunning = true;
 
     public TrainPosition(MapsActivity maps, int trainNumber){
         this.maps = maps;
         this.trainNumber = trainNumber;
-        trainIsRunning = true;
     }
 
-    protected void onProgressUpdate(String[] strings)
-    {
+    //  Updates map
+    protected void onProgressUpdate(String[] strings) {
         maps.drawOnMap();
     }
 
     @Override
-    protected String doInBackground(String... strings)
-    {
+    protected String doInBackground(String... strings) {
         while(trainIsRunning) {
             LatLng newPosition = getTrainLocation();
 
-
+            //  If position not empty, update map
             if(newPosition != null){
                 maps.setNewTrainLatLng(newPosition);
-                //  UPDATE MAP
+                //  calls onProgressUpdate which updates the maps markers
                 publishProgress();
 
             }else{
@@ -47,6 +43,11 @@ public class TrainPosition extends AsyncTask<String, String, String>
                 break;
             }
 
+            //  If user exits MapsActivity this cancels background Task
+            if (isCancelled())
+                break;
+
+            //  Waits 15 seconds
             try {
                 TimeUnit.SECONDS.sleep(15);
             }catch (InterruptedException e) {
@@ -58,34 +59,33 @@ public class TrainPosition extends AsyncTask<String, String, String>
 
     }
 
+    //  When train stops or train is not running, toast the user to let them know it
     @Override
     protected void onPostExecute(String s) {
-        maps.toastError("Train is not currently runnning");
+        maps.toastError("Train is not currently running");
     }
 
     private LatLng getTrainLocation(){
+        //  Api call of trains position
         String response = new String();
         String apiUrl = "https://rata.digitraffic.fi/api/v1/train-locations/latest/" + trainNumber;
-        try
-        {
+        try {
             URL url = new URL(apiUrl);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
             String nextLine = new String();
 
-            while ((nextLine = reader.readLine()) != null)
-            {
+            while ((nextLine = reader.readLine()) != null) {
                 response += nextLine;
             }
 
             JSONArray responseJson = new JSONArray(response);
             LatLng newCoordinates = new LatLng(responseJson.getJSONObject(0).getJSONObject("location").getJSONArray("coordinates").getDouble(1), responseJson.getJSONObject(0).getJSONObject("location").getJSONArray("coordinates").getDouble(0));
-            System.out.println(responseJson.getJSONObject(0).getJSONObject("location").getJSONArray("coordinates").getDouble(1));
+            System.out.println("train coord : " +responseJson.getJSONObject(0).getJSONObject("location").getJSONArray("coordinates").getDouble(1));
             return newCoordinates;
         }
-        catch(Exception e)
-        {
+        catch(Exception e) {
             return null;
         }
     }

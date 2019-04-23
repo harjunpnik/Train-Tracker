@@ -44,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
         loadingText = findViewById(R.id.loadingText);
 
         setAutoCompleteTextViews();
+
+        //  If user returns from map page, this reloads the ListView
+        Intent intent = getIntent();
+        String startName = intent.getStringExtra("start name");
+        if(startName != null){
+            startText.setText(intent.getStringExtra("start name"));
+            destinationText.setText(intent.getStringExtra("destination name"));
+            setRoute();
+        }
     }
 
     //  Toasts Error msg to user
@@ -84,8 +93,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    //  OnClick of Set Route
+    //  OnClick of Set Route, called by button
     public void onClickSetRoute(View v){
+        setRoute();
+    }
+
+
+    //  On set route makes AsyncTask api call and updates the ListView based on on the result
+    public void setRoute(){
         String start = stationNames.get(startText.getText().toString());
         String destination = stationNames.get(destinationText.getText().toString());
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -98,23 +113,21 @@ public class MainActivity extends AppCompatActivity {
         String url = "https://rata.digitraffic.fi/api/v1/live-trains/station/" + start + "/" + destination + "/?departure_date=" + dateFormat.format(date);
 
         new GetTrains(this, start, destination, this).execute(url);
-
     }
 
-    //  TODO COMMENT THIS
+
+    //  Sets ListView to current array and makes each item clickable
     public void setListView(ArrayList<Train> trains){
         String[] menuValues = new String[trains.size()];
 
         int i = 0;
-        for(Train train : trains)
-        {
+        for(Train train : trains) {
             menuValues[i] = train.getNameFormated();
             i++;
         }
 
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1, menuValues);
-
 
         listView.setAdapter(itemsAdapter);
 
@@ -131,7 +144,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 
 }

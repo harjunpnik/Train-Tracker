@@ -41,6 +41,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng trainLatLng;
     private int trainNumber;
 
+    private TrainPosition trainPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +59,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         loadValues();
     }
 
+    //  Load in starting values
     public void loadValues(){
-
         HashMap<String, Train> trains = FileIO.loadTrains(this);
         Intent intent = getIntent();
         String currentTrainName = intent.getStringExtra("full name");
+        trainPosition = new TrainPosition(this, trainNumber);
 
         nameText.setText(trains.get(currentTrainName).getNameFormated());
         startTimeText.setText("Start Time: " + trains.get(currentTrainName).getStartTime());
@@ -84,22 +86,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
     }
 
     //  Back button that takes you to the main page
     public void onBack(View v) {
+        //  Cancels background process
+        trainPosition.cancel(true);
+        //  Sends intet values for MainActivity to refresh the ListView
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("start name", startName);
+        intent.putExtra("destination name", destinationName);
         startActivity(intent);
         finish();
-
     }
 
+    //  Executes when map is ready, updates camera position, draws markers and starts background process of trainPosition tracking
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(startLatLng));
         CameraPosition cameraMovement = CameraPosition.builder()
                 .target(startLatLng)
@@ -107,23 +111,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraMovement));
         drawOnMap();
+        //new TrainPosition(this, trainNumber).execute();
         //  Start train tracking when map has loaded
-        new TrainPosition(this, trainNumber).execute();
+        trainPosition.execute();
     }
 
+    //  Draws on map the markers
     public void drawOnMap(){
         mMap.clear();
         mMap.addMarker(new MarkerOptions().position(startLatLng).title(startName));
         mMap.addMarker(new MarkerOptions().position(destinationLatLng).title(destinationName).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
 
         if(trainLatLng != null)
-        mMap.addMarker(new MarkerOptions().position(trainLatLng).title("Train").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        mMap.addMarker(new MarkerOptions().position(trainLatLng).title("Train " + trainNumber).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
     }
 
+    //  Sets the train LatLng position, called from TrainPosition.java
     public void setNewTrainLatLng(LatLng newPosition){
         trainLatLng = newPosition;
     }
 
+    //  Toast user the error. Called from TrainPosition.java
     public void toastError(String errorMsg){
         Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
     }

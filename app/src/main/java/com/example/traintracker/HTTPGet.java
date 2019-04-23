@@ -13,31 +13,27 @@ public class HTTPGet extends AsyncTask<String, Void, String>
 
 
     @Override
-    protected String doInBackground(String... strings)
-    {
+    protected String doInBackground(String... strings) {
+
         String response = new String();
 
-        try
-        {
+        try {
             URL url = new URL(strings[0]);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
             String nextLine = new String();
 
-            while ((nextLine = reader.readLine()) != null)
-            {
+            while ((nextLine = reader.readLine()) != null) {
                 response += nextLine;
             }
 
             return response;
         }
-        catch(Exception e)
-        {
+        catch(Exception e) {
             return null;
         }
 
     }
-
 
 }
