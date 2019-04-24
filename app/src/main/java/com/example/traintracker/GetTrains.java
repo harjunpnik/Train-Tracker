@@ -33,6 +33,7 @@ public class GetTrains extends AsyncTask<String, Void, JSONArray>
         loadShortCodeTranslatorArray();
     }
 
+    // TODO MOVE TO FUNCTIONS CLASS?
     protected void loadShortCodeTranslatorArray(){
         try {
             //  Read Json file as Array. Takes the string and converts it to JSON Array
