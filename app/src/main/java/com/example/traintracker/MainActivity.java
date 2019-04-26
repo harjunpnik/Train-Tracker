@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,8 +23,6 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
     AutoCompleteTextView startText;
     AutoCompleteTextView destinationText;
-    Button setButton;
-    Button viewMapButton;
     ListView listView;
     TextView loadingText;
 
@@ -35,11 +32,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         startText = findViewById(R.id.startAutoComplete);
         destinationText = findViewById(R.id.destinationAutoComplete);
-        setButton = findViewById(R.id.setButton);
-        viewMapButton = findViewById(R.id.viewMapButtton);
         listView = findViewById(R.id.listView);
         loadingText = findViewById(R.id.loadingText);
 
@@ -83,15 +77,13 @@ public class MainActivity extends AppCompatActivity {
                 stationNames.put(jsonObj.getJSONObject(i).getString("stationName"), jsonObj.getJSONObject(i).getString("stationShortCode"));
             }
             //  Creates adapter and sets it to the AutoComplete lists
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, adapterNames);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, adapterNames);
             startText.setAdapter(adapter);
             destinationText.setAdapter(adapter);
         } catch (JSONException e) {
             toastError("Failed to successfully create Auto Complete Lists");
         }
     }
-
-
 
     //  OnClick of Set Route, called by button
     public void onClickSetRoute(View v){

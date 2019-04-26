@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 
 public class TrainPosition extends AsyncTask<String, String, String> {
     MapsActivity maps;
-    int trainNumber;
-    boolean trainIsRunning = true;
+    private int trainNumber;
+    private boolean trainIsRunning = true;
 
     public TrainPosition(MapsActivity maps, int trainNumber){
         this.maps = maps;
@@ -56,7 +56,6 @@ public class TrainPosition extends AsyncTask<String, String, String> {
 
         }
         return null;
-
     }
 
     //  When train stops or train is not running, toast the user to let them know it

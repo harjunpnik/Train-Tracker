@@ -4,7 +4,6 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.PersistableBundle;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,34 +20,26 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.maps.android.PolyUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    TextView nameText;
-    TextView startTimeText;
-    TextView arrivalTimeText;
+    private TextView nameText;
+    private TextView startTimeText;
+    private TextView arrivalTimeText;
     private LatLng startLatLng;
     private LatLng destinationLatLng;
     private String startName;
     private String destinationName;
     private LatLng trainLatLng;
     private int trainNumber;
-
     private TrainPosition trainPosition;
-
-    Button followButton;
-    static boolean trainFollowing = false;
+    private HashMap<String,String> stationNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,19 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         startTimeText = findViewById(R.id.startTimeText);
         arrivalTimeText = findViewById(R.id.arrivalTimeText);
 
-        followButton = findViewById(R.id.followButton);
-        setFollowButtonText();
-
         loadValues();
-    }
-
-    //  Sets the Follow/Unfollow button correctly
-    private void setFollowButtonText(){
-        if(trainFollowing){
-            followButton.setText("Unfollow");
-        }else{
-            followButton.setText("Follow");
-        }
     }
 
     //  Load in starting values
@@ -88,13 +66,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         nameText.setText(trains.get(currentTrainName).getNameFormated());
         startTimeText.setText("Start Time: " + trains.get(currentTrainName).getStartTime());
         arrivalTimeText.setText("Arrival Time: " + trains.get(currentTrainName).getArrivalTime());
-
         startName = trains.get(currentTrainName).getStart();
         destinationName = trains.get(currentTrainName).getDestination();
         trainNumber = trains.get(currentTrainName).getNumber();
 
+        //  Initialize TrainPosition tracker to be executed in onMapReady
         trainPosition = new TrainPosition(this, trainNumber);
 
+        //  Get Starting train station and destination LatLng
         try {
             JSONArray jsonObj = new JSONArray(AssetReader.loadStationsFromAsset(this));
             for(int i = 0; i < jsonObj.length(); i++){
@@ -109,6 +88,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         loadShortCodeTranslatorArray();
 
+    }
+
+    //  Loads in ShortCodeTranslator array with full name as key and shortcode as value
+    private void loadShortCodeTranslatorArray(){
+        try {
+            JSONArray jsonObj = new JSONArray(AssetReader.loadStationsFromAsset(this));
+            stationNames = new HashMap<>();
+            for(int i = 0; i < jsonObj.length(); i++){
+                stationNames.put(jsonObj.getJSONObject(i).getString("stationName"),jsonObj.getJSONObject(i).getString("stationShortCode"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     //  Back button that takes you to the main page
@@ -127,14 +119,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(startLatLng));
         CameraPosition cameraMovement = CameraPosition.builder()
                 .target(startLatLng)
                 .zoom(10)
                 .build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraMovement));
         drawOnMap();
-        //new TrainPosition(this, trainNumber).execute();
         //  Start train tracking when map has loaded
         trainPosition.execute();
     }
@@ -159,68 +149,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Toast.makeText(getApplicationContext(), errorMsg, Toast.LENGTH_LONG).show();
     }
 
-
-    //TODO MAKE THIS TWO SEPPARATE BUTTONS
+    //  Starts a JobService for notifications
     public void onClickStartTrainFollowing(View v){
-        trainFollowing = !trainFollowing;
-        setFollowButtonText();
-
-        if(trainFollowing){
-            System.out.println("Train  being followed");
             scheduleTrainJob();
-        }else{
-            System.out.println("Train is not being followed");
-            cancelTrainJob();
-        }
-
     }
 
-    //TODO MOVE TO FUNCTIONS CLASS
-    private HashMap<String,String> stationNames;
-    protected void loadShortCodeTranslatorArray(){
-        try {
-            //  Read Json file as Array. Takes the string and converts it to JSON Array
-            //  This is HashMap is used for converting ShortCodes from the API to the full station names.
-            JSONArray jsonObj = new JSONArray(AssetReader.loadStationsFromAsset(this));
-            stationNames = new HashMap<>();
-            for(int i = 0; i < jsonObj.length(); i++){
-                stationNames.put(jsonObj.getJSONObject(i).getString("stationName"),jsonObj.getJSONObject(i).getString("stationShortCode"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    //  Cancles all JobServices made
+    public void cancelTrainJob(View v){
+        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        scheduler.cancel(7);
+        toastError("All Notifications have been terminated");
     }
 
-    //TODO CLEAN THIS TESTING MESS
+    //  Starts a JobService
     private void scheduleTrainJob(){
-        ComponentName  test = new ComponentName(this, TrainJobService.class);
+        ComponentName trainJobService = new ComponentName(this, TrainJobService.class);
 
         PersistableBundle bundle = new PersistableBundle();
         bundle.putInt("trainNumber", trainNumber);
         bundle.putString("trainStartNameShortCode", stationNames.get(startName));
+        bundle.putString("trainDestNameShortCode", stationNames.get(destinationName));
 
-        JobInfo info = new JobInfo.Builder(7,test)
-                .setExtras(bundle)
-                .setRequiresBatteryNotLow(true)
-                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+        JobInfo info = new JobInfo.Builder(7,trainJobService)
+                .setExtras(bundle)      //  Send extra values
+                .setRequiresBatteryNotLow(true)     //  Not low battery
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)   //  Any network
                 .setPersisted(true)
-                .setPeriodic(15 * 60 * 1000)
-                .build();///    SET ON BATTERY NOT LOW AND OTHER SETTINGS
+                .setPeriodic(15 * 60 * 1000)    //  Every 15 minutes
+                .build();
 
         JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
         int resultCode = scheduler.schedule(info);
         if(resultCode == JobScheduler.RESULT_SUCCESS){
-            System.out.println("JOB SCHEDULER SUCCESS");
+            //System.out.println("JOB SCHEDULER SUCCESS");
+            toastError("You will receive notifications of train " + trainNumber);
         }else{
-            System.out.println("JOB SCHEDULER FAILED"); //Use LOG
+            //System.out.println("JOB SCHEDULER FAILED");
+            toastError("Failed to send notifications, please try again");
         }
-    }
-
-    //TODO CANCEL ONLY CERTAIN TRAIN
-    private void cancelTrainJob(){
-        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
-        scheduler.cancel(7);
-        System.out.println("JOB SCHEDULER JOB CANCELLD");
     }
 
 }

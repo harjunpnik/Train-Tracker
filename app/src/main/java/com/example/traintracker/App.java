@@ -15,14 +15,14 @@ public class App extends Application {
         createNotificationChannels();
     }
 
+    //  Creates notification channel on application startup
     private void createNotificationChannels() {
         NotificationChannel channel1 = new NotificationChannel(
                 CHANNEL_1_ID,
-                "Channel 1",
+                "TrainTracker CH1",
                 NotificationManager.IMPORTANCE_DEFAULT
         );
-        //TODO CHANGE DESCRIPTION
-        channel1.setDescription("This  is channel 1");
+        channel1.setDescription("TrainTracker Notification Channel");
 
         NotificationManager manager = getSystemService(NotificationManager.class);
         manager.createNotificationChannel(channel1);
